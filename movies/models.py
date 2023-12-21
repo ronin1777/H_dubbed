@@ -8,3 +8,4 @@ class Movie(models.Model):
     start_release_date = models.DateField(_('start_release'), null=True, blank=True)
     end_release_date = models.DateField(_('end_release'), null=True, blank=True)
     description = models.TextField(_('description'), null=True, blank=True)
+
