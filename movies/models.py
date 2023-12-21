@@ -9,3 +9,5 @@ class Movie(models.Model):
     end_release_date = models.DateField(_('end_release'), null=True, blank=True)
     description = models.TextField(_('description'), null=True, blank=True)
 
+    def __str__(self):
+        return f'{self.title}'
