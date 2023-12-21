@@ -17,7 +17,12 @@ class MovieSerializersTest(APITestCase):
         }
         serializer = MovieSerializers(data=data)
         self.assertTrue(serializer.is_valid())
-
+        srz_data = serializer.data
+        self.assertEqual(srz_data['title'], 'Test Movie')
+        self.assertEqual(srz_data['slug'], 'test-movie')
+        self.assertEqual(srz_data['start_release_date'], '2022-01-01')
+        self.assertEqual(srz_data['end_release_date'], '2022-01-31')
+        self.assertEqual(srz_data['description'], 'This is a test movie.')
 
 
 
