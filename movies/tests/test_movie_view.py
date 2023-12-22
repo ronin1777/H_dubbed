@@ -7,7 +7,7 @@ from movies.views import MovieCreateView
 
 
 class MovieViewTest(APITestCase):
-
+    #
     def test_create_movie(self):
         valid_data = {
             'title': 'Test Movie',
@@ -36,6 +36,12 @@ class MovieViewTest(APITestCase):
 
         response = self.client.get(f'/movie/updatemovie/{movie.id}/')
         self.assertEqual(response.status_code, 200)
+
+    def test_search_query(self):
+        Movie.objects.create(title='Test Movie', slug='test-movie')
+        response = self.client.get('/movie/movie_search/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), len(Movie.objects.all()))
 
 
 
