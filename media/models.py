@@ -2,13 +2,16 @@
 import hashlib
 
 from django.db import models
+
+from bucket import bucket
 from .exceptions import DuplicateImageException
 
 
 # Create your models here.
 class MediaModel(models.Model):
     title = models.CharField(max_length=128, null=True, blank=True)
-    image = models.ImageField(width_field="width", height_field="height", upload_to="images/")
+    my_file = models.FileField( null=True, blank=True)
+    image = models.ImageField(width_field="width", height_field="height", null=True, blank=True)
     video = models.FileField(upload_to="video/", null=True, blank=True)
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
@@ -33,3 +36,9 @@ class MediaModel(models.Model):
 
         super().save(*args, **kwargs)
 
+    def __str__(self):
+        return self.title
+
+
+class BucketObjects(models.Model):
+    my_file = models.FileField()

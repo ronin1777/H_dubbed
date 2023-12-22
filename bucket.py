@@ -2,13 +2,14 @@ import boto3
 from django.conf import settings
 
 from h_dubbed.settings import BASE_DIR
-
+from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
 
 class Bucket:
-    access_key = 'bl8ddcmgima61cpg'
-    secret_key = '85d332c1-93ee-4c41-b33d-606d80237de1'
+    access_key = 'ik9thvtb66lu4uc5'
+    secret_key = '4f2ac6ec-0220-4a4d-9847-8c69b4818b04'
     endpoint_url = 'https://storage.iran.liara.space'
-    bucket_name = 'shop-key'
+    bucket_name = 'drf-hdubbed'
     local_storage = f'{BASE_DIR}/aws/'
     """CDN BUCKET MANAGER
 
@@ -42,3 +43,5 @@ class Bucket:
 
 
 bucket = Bucket()
+
+

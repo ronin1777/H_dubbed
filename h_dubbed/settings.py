@@ -40,8 +40,10 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'drf_spectacular',
+    'storages',
 
-    'movies'
+    'movies',
+    'media',
 ]
 
 MIDDLEWARE = [
@@ -148,10 +150,10 @@ STORAGES = {
     "default": {
         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
         "OPTIONS": {
-            'access_key': 'bl8ddcmgima61cpg',
-            'secret_key': '85d332c1-93ee-4c41-b33d-606d80237de1',
+            'access_key': 'ik9thvtb66lu4uc5',
+            'secret_key': '4f2ac6ec-0220-4a4d-9847-8c69b4818b04',
             'endpoint_url': 'https://storage.iran.liara.space',
-            'bucket_name': 'shop-key',
+            'bucket_name': 'drf-hdubbed',
             'file_overwrite': False,
 
         },
