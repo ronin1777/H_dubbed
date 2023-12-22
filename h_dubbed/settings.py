@@ -142,3 +142,21 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
 
 }
+
+
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "OPTIONS": {
+            'access_key': 'bl8ddcmgima61cpg',
+            'secret_key': '85d332c1-93ee-4c41-b33d-606d80237de1',
+            'endpoint_url': 'https://storage.iran.liara.space',
+            'bucket_name': 'shop-key',
+            'file_overwrite': False,
+
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
