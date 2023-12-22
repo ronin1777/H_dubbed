@@ -9,7 +9,7 @@ from movies.serializers import MovieSerializers
 
 
 class MovieCreateView(ListCreateAPIView):
-    # permission_classes = [IsAdminOrReadOnly]
+    permission_classes = [IsAdminOrReadOnly]
     queryset = Movie.objects.all()
     serializer_class = MovieSerializers
     filter_backends = [DjangoFilterBackend]
@@ -19,7 +19,7 @@ class MovieCreateView(ListCreateAPIView):
 class MovieUpdateView(RetrieveUpdateDestroyAPIView):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializers
-    # permission_classes = [IsAdminOrReadOnly]
+    permission_classes = [IsAdminOrReadOnly]
 
 
 class MovieSearch(generics.ListAPIView):
