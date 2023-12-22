@@ -25,11 +25,6 @@ class Movie(models.Model):
         return f'{self.title}'
 
 
-class MovieMedia(models.Model):
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='image_post')
-    media = models.ForeignKey('media.MediaModel', on_delete=models.PROTECT)
-
-
 class Casts(models.Model):
     GENDERS = [
         ('m', "Male"),
