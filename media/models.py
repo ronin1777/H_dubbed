@@ -2,6 +2,7 @@
 import hashlib
 
 from django.db import models
+from .exceptions import DuplicateImageException
 
 
 # Create your models here.
@@ -31,3 +32,4 @@ class MediaModel(models.Model):
             self.file_hash = hasher.hexdigest()
 
         super().save(*args, **kwargs)
+
