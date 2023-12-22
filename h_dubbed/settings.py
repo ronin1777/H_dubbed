@@ -40,8 +40,10 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'drf_spectacular',
+    'storages',
 
-    'movies'
+    'movies',
+    'media',
 ]
 
 MIDDLEWARE = [
@@ -141,4 +143,22 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
 
+}
+
+
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "OPTIONS": {
+            'access_key': 'ik9thvtb66lu4uc5',
+            'secret_key': '4f2ac6ec-0220-4a4d-9847-8c69b4818b04',
+            'endpoint_url': 'https://storage.iran.liara.space',
+            'bucket_name': 'drf-hdubbed',
+            'file_overwrite': False,
+
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
 }
