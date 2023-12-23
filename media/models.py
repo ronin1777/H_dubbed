@@ -1,16 +1,12 @@
-
 import hashlib
-
 from django.db import models
 
-from bucket import bucket
 from .exceptions import DuplicateImageException
 
 
 # Create your models here.
 class MediaModel(models.Model):
     title = models.CharField(max_length=128, null=True, blank=True)
-    my_file = models.FileField( null=True, blank=True)
     image = models.ImageField(width_field="width", height_field="height", null=True, blank=True)
     video = models.FileField(upload_to="video/", null=True, blank=True)
     width = models.IntegerField(editable=False)
