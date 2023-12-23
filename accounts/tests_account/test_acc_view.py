@@ -15,4 +15,3 @@ class TestUserRegister(APITestCase):
                                     data={'email': 'hosein@gmail.com', 'username': 'hosein', 'password': 'hosein123'})
         self.assertEquals(response.status_code, HTTP_201_CREATED)
         self.assertEquals(User.objects.count(), 1)
-        
