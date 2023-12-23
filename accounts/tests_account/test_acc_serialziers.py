@@ -3,7 +3,7 @@ import unittest
 from rest_framework.test import APITestCase, APIClient, APIRequestFactory
 
 from accounts.models import User
-from accounts.serializers import UserSerializer, LogInSerializer
+from accounts.serializers import UserSerializer, LogInSerializer, EmailVerificationSerializer
 
 
 class TestRegisterSerializers(APITestCase):
@@ -43,3 +43,11 @@ class TestRegisterSerializers(APITestCase):
 
             self.assertIn('access', tokens)
             self.assertIn('refresh', tokens)
+            self.assertIsInstance(tokens['access'], str)
+            self.assertIsInstance(tokens['refresh'], str)
+
+        def test_valid_user_with_valid_token(self):
+            user = User(token='valid_token')
+            serializer = EmailVerificationSerializer(user)
+            expected_data = {'token': 'valid_token'}
+            self.assertEqual(serializer.data, expected_data)
