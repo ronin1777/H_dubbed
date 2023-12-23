@@ -13,3 +13,10 @@ class TestRegisterSerializers(APITestCase):
         self.assertEquals(validate_data['email'], 'test@gmail.com')
         self.assertEqual(validate_data['username'], 'test')
         self.assertEqual(validate_data['password'], '12345678')
+
+    def test_invalid_registration(self):
+
+        data = {'email': 'test@example.com', 'username': 'test@gmail.com', 'password': 'test'}
+        serializer = UserSerializer(data=data)
+        self.assertEqual(serializer.is_valid(), False)
+        self.assertEqual(serializer.errors['password'], ['Ensure this field has at least 8 characters.'])
