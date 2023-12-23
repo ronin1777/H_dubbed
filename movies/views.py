@@ -12,8 +12,6 @@ class MovieCreateView(ListCreateAPIView):
     permission_classes = [IsAdminOrReadOnly]
     queryset = Movie.objects.all()
     serializer_class = MovieSerializers
-    filter_backends = [DjangoFilterBackend]
-    filterset_class = MovieFilters
 
 
 class MovieUpdateView(RetrieveUpdateDestroyAPIView):
