@@ -65,3 +65,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+
+class ContactUs(models.Model):
+    f_name = models.CharField(_('first name'), max_length=200)
+    l_name = models.CharField(_('last name'), max_length=200)
+    email = models.EmailField(_('email'), max_length=200)
+    text = models.TextField(_('text'))
+
+    class Meta:
+        db_table = "contactus"
