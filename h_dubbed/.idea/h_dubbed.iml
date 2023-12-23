@@ -13,8 +13,8 @@
     </facet>
   </component>
   <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$" />
-    <orderEntry type="jdk" jdkName="Python 3.11 (.env)" jdkType="Python SDK" />
+    <content url="file://$MODULE_DIR$/../../hate_dubbed" />
+    <orderEntry type="jdk" jdkName="Python 3.11 (hate_dubbed)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TemplatesService">
