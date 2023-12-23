@@ -6,6 +6,9 @@ from accounts.models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(min_length=8
+                                     , max_length=68, write_only=True)
+
     class Meta:
         model = User
         fields = ['email', 'username', 'password']
