@@ -3,7 +3,7 @@ import unittest
 from rest_framework.test import APITestCase, APIClient, APIRequestFactory
 
 from accounts.models import User
-from accounts.serializers import UserSerializer
+from accounts.serializers import UserSerializer, LogInSerializer
 
 
 class TestRegisterSerializers(APITestCase):
