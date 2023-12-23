@@ -42,8 +42,10 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'storages',
 
+    # local app
     'movies',
     'media',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -162,3 +164,5 @@ STORAGES = {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
 }
+
+AUTH_USER_MODEL = 'accounts.User'
