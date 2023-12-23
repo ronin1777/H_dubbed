@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from rest_framework import status
 from rest_framework.test import APITestCase, APIClient, APIRequestFactory
 
 from movies.models import Movie, Director, Casts, Genre
@@ -8,7 +9,7 @@ from movies.views import MovieCreateView
 
 
 # class MovieViewTest(APITestCase):
-#     #
+#
 #     def test_create_movie(self):
 #         valid_data = {
 #             'title': 'Test Movie',
@@ -44,7 +45,9 @@ from movies.views import MovieCreateView
 #         self.assertEqual(response.status_code, 200)
 #         self.assertEqual(len(response.data), len(Movie.objects.all()))
 
+
 class MovieCreateViewTest(APITestCase):
+
     def setUp(self):
         self.client = APIClient()
         self.superuser = User.objects.create_superuser(
@@ -53,25 +56,23 @@ class MovieCreateViewTest(APITestCase):
             password='password'
         )
         self.client.force_authenticate(user=self.superuser)
-        # self.client.force_login(self.superuser)
 
         self.director = Director.objects.create(director_name='Test Director', date_of_birth='1990-01-01', gender='m')
-        self.cast1 = Casts.objects.create(cast_name='Cast 1', date_of_birth='1995-01-01', gender='f')
-        self.cast2 = Casts.objects.create(cast_name='Cast 2', date_of_birth='1998-01-01', gender='m')
-        self.genre1 = Genre.objects.create(name='Genre 1')
-        self.genre2 = Genre.objects.create(name='Genre 2')
+        self.cast = Casts.objects.create(cast_name='Cast', date_of_birth='1995-01-01', gender='f')
+        self.genre = Genre.objects.create(name='Genre')
 
-    def test_only_superuser_can_create_movie(self):
-        movie = Movie.objects.create(
-            title='Test Movie',
-            slug='test-movie',
-            director=self.director,
-            imdb_rating=7.5,
-            runtime='120 min',
-        )
-        movie.casts.add(self.cast1, self.cast2)
-        movie.genres.add(self.genre1, self.genre2)
-        self.assertEqual(movie.title, 'Test Movie')
+    def test_create_movie_with_valid_data_as_superuser(self):
+        data = {
+            'title': 'Test movie',
+            'slug': 'Test-movie',
+            'director': self.director.id,
+            'casts': [self.cast.id],
+            'genres': [self.genre.id]
+        }
+        response = self.client.post('/movie/createmovie/', data=data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data['title'], 'Test movie')
+
 
 
 
