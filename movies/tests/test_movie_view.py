@@ -1,7 +1,8 @@
-from django.contrib.auth.models import User
+
 from rest_framework import status
 from rest_framework.test import APITestCase, APIClient, APIRequestFactory
 
+from accounts.models import User
 from movies.models import Movie, Director, Casts, Genre
 from django.urls import reverse
 
