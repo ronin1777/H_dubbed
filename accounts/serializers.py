@@ -21,6 +21,14 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 
+class EmailVerificationSerializer(serializers.ModelSerializer):
+    token = serializers.CharField(max_length=555)
+
+    class Meta:
+        model = User
+        fields = ['token']
+
+
 class LogInSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
