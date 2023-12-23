@@ -1,5 +1,8 @@
+import unittest
+
 from rest_framework.test import APITestCase, APIClient, APIRequestFactory
 
+from accounts.models import User
 from accounts.serializers import UserSerializer
 
 
@@ -20,3 +23,23 @@ class TestRegisterSerializers(APITestCase):
         serializer = UserSerializer(data=data)
         self.assertEqual(serializer.is_valid(), False)
         self.assertEqual(serializer.errors['password'], ['Ensure this field has at least 8 characters.'])
+
+    def test_invalid_email(self):
+        data = {'email': 'invalid_email', 'username': 'test', 'password': '12345678'}
+        serializer = UserSerializer(data=data)
+        self.assertEqual(serializer.is_valid(), False)
+        self.assertEqual(serializer.errors['email'], ['Enter a valid email address.'])
+
+    class LogInSerializerTestCase(unittest.TestCase):
+        def test_get_tokens(self):
+            user = User.objects.create_user(username='111testone', email='111testone@email.com', password='1123456789')
+            serializer = LogInSerializer()
+            data = {
+                'username': '111testone',
+                'email': '111testone@email.com',
+                'password': '1123456789'
+            }
+            tokens = serializer.validate(data)
+
+            self.assertIn('access', tokens)
+            self.assertIn('refresh', tokens)
