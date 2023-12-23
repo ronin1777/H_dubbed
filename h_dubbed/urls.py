@@ -30,4 +30,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('movie/', include('movies.urls', namespace='movie')),
     path('media/', include('media.urls', namespace='media')),
+    path('accounts/', include('accounts.urls', namespace='accounts')),
 ] + doc_patterns

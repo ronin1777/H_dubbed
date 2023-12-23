@@ -11,7 +11,10 @@ class TestUserRegister(APITestCase):
         self.client = APIClient()
 
     def test_user_register_valid(self):
-        response = self.client.post(reverse('users-front:user_register'),
+        response = self.client.post(reverse('accounts:register'),
                                     data={'email': 'hosein@gmail.com', 'username': 'hosein', 'password': 'hosein123'})
         self.assertEquals(response.status_code, HTTP_201_CREATED)
         self.assertEquals(User.objects.count(), 1)
+
+
+
