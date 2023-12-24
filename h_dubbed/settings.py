@@ -42,9 +42,24 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'rest_framework',
+    # Third-party  apps
+
+    "corsheaders",
     'drf_spectacular',
-    'storages',
+    'django_filters',
+    'rest_framework',
+    'drf_yasg',
+
+    # auth package
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
+    'rest_framework.authtoken',
+    'nested_admin',
+    # 'dj_rest_auth',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
 
     # local app
     'movies',
@@ -56,10 +71,16 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+
+    "corsheaders.middleware.CorsMiddleware",
+
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+
+    "allauth.account.middleware.AccountMiddleware",
+
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -141,6 +162,11 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+
+    ),
 
 }
 SIMPLE_JWT = {

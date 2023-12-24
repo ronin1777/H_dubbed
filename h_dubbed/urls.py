@@ -31,4 +31,5 @@ urlpatterns = [
     path('movie/', include('movies.urls', namespace='movie')),
     path('media/', include('media.urls', namespace='media')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
+    path('Profile/', include('Profile.urls', namespace='Profile')),
 ] + doc_patterns
