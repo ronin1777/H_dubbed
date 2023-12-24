@@ -13,6 +13,7 @@ class Profile(models.Model):
 
     first_name = models.CharField(max_length=120, blank=True, null=True)
     last_name = models.CharField(max_length=120, blank=True, null=True)
+    image = models.ImageField( blank=True, null=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile_user', blank=True, null=True)
     gender = models.CharField(max_length=1, choices=GENDER, blank=True, null=True)
     age = models.SmallIntegerField(_('age'), default=10, blank=True, null=True)
@@ -23,3 +24,12 @@ class Profile(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+    @property
+    def full_name(self):
+        if self.first_name and self.last_name:
+            full_name = f"{self.first_name} {self.last_name}"
+        else:
+            full_name = None
+        return full_name
+
