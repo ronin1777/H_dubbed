@@ -1,5 +1,5 @@
 from unittest import TestCase, mock
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock, Mock
 
 from django.contrib.auth import get_user_model
 from rest_framework import status
@@ -9,7 +9,8 @@ from django.urls import reverse
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from accounts.models import User
-from accounts.views import RegisterView
+from accounts.serializers import LogoutSerializer
+from accounts.views import RegisterView, LogoutAPIView
 
 
 class TestUserRegister(APITestCase):
@@ -42,7 +43,4 @@ class TestUserLogin(APITestCase):
         response = self.client.post(reverse('accounts:user_login'), data={'username': '', 'password': 'admin1234'})
         self.assertEquals(response.data, {"username": ["This field may not be blank."]})
         self.assertNotIn('access' or 'refresh', response.data)
-
-
-
 
