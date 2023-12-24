@@ -1,7 +1,10 @@
 from django.core.mail import EmailMessage
+from jwt import encode
 
 
 import threading
+
+from h_dubbed import settings
 
 
 class EmailThread(threading.Thread):
@@ -20,3 +23,5 @@ class Util:
         email = EmailMessage(
             subject=data['email_subject'], body=data['email_body'], to=[data['to_email']])
         EmailThread(email).start()
+
+

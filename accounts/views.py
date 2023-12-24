@@ -4,7 +4,7 @@ from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, status
 from rest_framework.generics import GenericAPIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -77,10 +77,24 @@ class UserListview(generics.ListAPIView):
 
 class LoginAPIView(TokenObtainPairView):
     serializer_class = LogInSerializer
+    permission_classes = (AllowAny,)
 
     def get_object(self):
-        user = self.request.user
-        return Response(user, status=status.HTTP_200_OK)
+        # Do not attempt to authenticate the user
+        return None
+
+    def post(self, request, *args, **kwargs):
+        # Get the serializer instance
+        serializer = self.get_serializer(data=request.data)
+
+        # Validate the serializer data
+        serializer.is_valid(raise_exception=True)
+
+        # Generate access and refresh tokens
+        tokens = serializer.validated_data
+
+        # Send the response
+        return Response(tokens, status=status.HTTP_200_OK)
 
 
 class LogoutAPIView(GenericAPIView):

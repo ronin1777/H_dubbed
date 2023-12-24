@@ -63,6 +63,7 @@ INSTALLED_APPS = [
 
 
     # local app
+
     'movies',
     'media',
     'accounts',
