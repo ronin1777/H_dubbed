@@ -9,7 +9,7 @@ class PostMediaInline(admin.TabularInline):
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('user', 'slug', 'updated', 'avg_rating', 'like_post_count', 'comment_count')
+    list_display = ('id', 'user', 'slug', 'updated', 'avg_rating', 'like_post_count', 'comment_count')
     search_fields = ('slug', 'body')
     list_filter = ('updated',)
     prepopulated_fields = {'slug': ('body',)}

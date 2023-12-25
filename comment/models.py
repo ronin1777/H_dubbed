@@ -57,7 +57,6 @@ class Comment(models.Model):
     is_reply = models.BooleanField(default=False)
     body = models.TextField(_('body'), max_length=400)
     created = models.DateTimeField(auto_now_add=True)
-    points = models.IntegerField(default=5)
 
     def like_comment_count(self):
         like = Reviews.objects.filter(content_type__model='comment', object_id=self.id)
