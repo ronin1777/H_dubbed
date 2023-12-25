@@ -5,6 +5,8 @@ from h_dubbed import settings
 from rating.models import Rating
 from django.utils.translation import gettext_lazy as _
 
+from reviews.models import Reviews
+
 
 class Post(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='U_posts')
@@ -30,6 +32,13 @@ class Post(models.Model):
     def comment_count(self):
         return self.p_comments.count()
 
+    @property
+    def like_post_count(self):
+        like = Reviews.objects.filter(content_type__model='post', object_id=self.id)
+        if like.exists():
+            return like.count()
+        return 0
+
     def __str__(self):
         return f'{self.slug} - {self.updated}'
 
@@ -49,6 +58,12 @@ class Comment(models.Model):
     body = models.TextField(_('body'), max_length=400)
     created = models.DateTimeField(auto_now_add=True)
     points = models.IntegerField(default=5)
+
+    def like_comment_count(self):
+        like = Reviews.objects.filter(content_type__model='comment', object_id=self.id)
+        if like.exists():
+            return like.count()
+        return 0
 
     def __str__(self):
         return f'{self.user} - {self.body}'
