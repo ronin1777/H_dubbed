@@ -8,7 +8,7 @@ from .models import Badge, UserBadge
 
 def check_profile_completion(sender, instance, created, **kwargs):
     """
-    assign profile badge to users if they fill first name and last name.
+    assign profile badge to users if he/she fill first name and last name.
     """
     if created:
 
