@@ -2,10 +2,14 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from Profile.models import Profile
+from comment.models import Comment
 from .models import Badge, UserBadge
 
 
 def check_profile_completion(sender, instance, created, **kwargs):
+    """
+    assign profile badge to users if they fill first name and last name.
+    """
     if created:
 
         def check_profile():
@@ -23,5 +27,7 @@ def check_profile_completion(sender, instance, created, **kwargs):
 @receiver(post_save, sender=Profile)
 def profile_save_handler(sender, instance, created, **kwargs):
     check_profile_completion(sender, instance, created, **kwargs)
+
+
 
 
