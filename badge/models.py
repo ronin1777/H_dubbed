@@ -15,3 +15,9 @@ class Badge(models.Model):
     def __str__(self):
         return self.name
 
+
+class BadgeMedia(models.Model):
+
+    user = models.ManyToManyField(Badge, related_name='user_badge')
+    media = models.ForeignKey('media.MediaModel', on_delete=models.PROTECT)
+
