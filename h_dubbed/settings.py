@@ -50,12 +50,14 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework',
     'drf_yasg',
+    'nested_admin',
 
     # auth package
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'rest_framework.authtoken',
-    'nested_admin',
+
+
     # 'dj_rest_auth',
     'allauth',
     'allauth.account',
@@ -68,6 +70,8 @@ INSTALLED_APPS = [
     'media',
     'accounts',
     'Profile',
+    'rating',
+
 ]
 
 MIDDLEWARE = [
