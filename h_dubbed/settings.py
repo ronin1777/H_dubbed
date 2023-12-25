@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     'accounts',
     'Profile',
     'rating',
+    'comment',
 
 ]
 
