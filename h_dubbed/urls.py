@@ -64,4 +64,5 @@ urlpatterns = [
     path('media/', include('media.urls', namespace='media')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('Profile/', include('Profile.urls', namespace='Profile')),
+    path('badge/', include('badge.urls', namespace='badge')),
 ] + doc_patterns

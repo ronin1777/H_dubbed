@@ -1,10 +1,9 @@
 from django.apps import AppConfig
 
 
-class CommentConfig(AppConfig):
+class BadgeConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'comment'
+    name = 'badge'
 
     def ready(self):
-        import comment.signals
-
+        import badge.signals

@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'nested_admin',
+    'django_celery_beat',
+    "django_celery_results",
 
     # auth package
     'rest_framework_simplejwt',
@@ -73,6 +75,7 @@ INSTALLED_APPS = [
     'rating',
     'comment',
     'reviews',
+    'badge',
 
 ]
 
@@ -242,3 +245,28 @@ LOGGING = {
         },
     },
 }
+
+# Celery settings
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
+
+# cash setting base on redis
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+#         'LOCATION': 'redis://127.0.0.1:6379',
+#     }
+# }
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": f"redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
+    }
+}
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
