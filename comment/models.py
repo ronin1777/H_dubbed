@@ -29,3 +29,15 @@ class Post(models.Model):
 class PostMedia(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='image_post')
     media = models.ForeignKey('media.MediaModel', on_delete=models.PROTECT, blank=True, null=True)
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='u_comments', null=True, blank=True)
+    anonymous_user = models.CharField(_('name'), max_length=200)
+    email = models.EmailField(_('email'))
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='p_comments')
+    reply = models.ForeignKey('self', on_delete=models.CASCADE, related_name='r_comments', blank=True, null=True)
+    is_reply = models.BooleanField(default=False)
+    body = models.TextField(_('body'), max_length=400)
+    created = models.DateTimeField(auto_now_add=True)
+    points = models.IntegerField(default=5)
