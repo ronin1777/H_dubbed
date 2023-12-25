@@ -16,4 +16,11 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['-created']
-        
+
+    @property
+    def avg_rating(self):
+        ratings = Rating.objects.filter(content_type__model='post', object_id=self.id)
+        if ratings.exists():
+            total_ratings = sum(rating.rating for rating in ratings)
+            return total_ratings / ratings.count()
+        return 0
