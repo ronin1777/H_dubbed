@@ -8,4 +8,6 @@ urlpatterns = [
     path('badge/', BadgeView.as_view()),
     path('badgeupdate/<int:pk>/', BadgeUpdateView.as_view()),
 
+    path('UserBadgeProgress/<int:badge_id>/', UserBadgeProgressView.as_view()),
+
 ]
