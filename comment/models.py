@@ -24,3 +24,8 @@ class Post(models.Model):
             total_ratings = sum(rating.rating for rating in ratings)
             return total_ratings / ratings.count()
         return 0
+
+
+class PostMedia(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='image_post')
+    media = models.ForeignKey('media.MediaModel', on_delete=models.PROTECT, blank=True, null=True)
