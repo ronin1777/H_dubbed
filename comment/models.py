@@ -25,6 +25,13 @@ class Post(models.Model):
             return total_ratings / ratings.count()
         return 0
 
+    @property
+    def comment_count(self):
+        return self.p_comments.count()
+
+    def __str__(self):
+        return f'{self.slug} - {self.updated}'
+
 
 class PostMedia(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='image_post')
@@ -41,3 +48,7 @@ class Comment(models.Model):
     body = models.TextField(_('body'), max_length=400)
     created = models.DateTimeField(auto_now_add=True)
     points = models.IntegerField(default=5)
+
+    def __str__(self):
+        return f'{self.user} - {self.body}'
+    
