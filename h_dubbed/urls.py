@@ -65,4 +65,5 @@ urlpatterns = [
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('Profile/', include('Profile.urls', namespace='Profile')),
     path('badge/', include('badge.urls', namespace='badge')),
+    path('level/', include('level.urls', namespace='level')),
 ] + doc_patterns

@@ -70,12 +70,13 @@ INSTALLED_APPS = [
 
     'movies',
     'media',
-    'accounts',
+    'accounts.apps.AccountsConfig',
     'Profile',
     'rating',
     'comment',
     'reviews',
     'badge',
+    'level'
 
 ]
 
