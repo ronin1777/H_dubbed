@@ -9,7 +9,7 @@ urlpatterns = [
     path('comment/', CommentViewSet.as_view(), name='comment'),
     path('update_comment/<int:pk>/', CommentRetrieveUpdateDeleteView.as_view(), name='comment'),
 
-    #admin urls
+
 
     path('create_post/', PostCreateViewSet.as_view(), name='create_post'),
     path('update_post/<int:pk>/', PostUpdateView.as_view(), name='update_post'),

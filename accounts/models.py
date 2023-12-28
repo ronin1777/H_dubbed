@@ -7,6 +7,10 @@ from django.contrib.auth.base_user import AbstractBaseUser
 from django.utils import timezone
 from django.core.mail import send_mail
 
+from badge.models import Badge, UserBadge
+from comment.models import Comment
+
+
 # Create your models here.
 
 
@@ -26,11 +30,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         },
     )
     email = models.EmailField(_("email address"), blank=True, unique=True)
-
-    points = models.IntegerField(default=0)
-    level = models.IntegerField(default=0)
-    reputation = models.PositiveIntegerField(default=0)
-
+    badge = models.ManyToManyField(Badge, null=True, blank=True, through=UserBadge)
     verified_email = models.BooleanField(default=False, error_messages='you must active your email')
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(
@@ -75,3 +75,6 @@ class ContactUs(models.Model):
 
     class Meta:
         db_table = "contactus"
+
+
+

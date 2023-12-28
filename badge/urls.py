@@ -9,5 +9,6 @@ urlpatterns = [
     path('badgeupdate/<int:pk>/', BadgeUpdateView.as_view()),
 
     path('UserBadgeProgress/<int:badge_id>/', UserBadgeProgressView.as_view()),
+    path('UserBadgelist/', UserBadgeView.as_view()),
 
 ]

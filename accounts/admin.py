@@ -3,6 +3,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from accounts.models import User
 from Profile.models import Profile
+from badge.models import Badge, UserBadge
 
 
 class ProfileInline(admin.StackedInline):
@@ -10,11 +11,16 @@ class ProfileInline(admin.StackedInline):
     can_delete = False
 
 
+class UserBadgeInline(admin.StackedInline):
+    model = UserBadge
+    extra = 1
+
+
 class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
 
-    list_display = ('email', 'username', 'is_admin', 'level', 'points', 'verified_email')
+    list_display = ('email', 'username', 'is_admin', 'verified_email')
     list_filter = ('is_admin',)
     readonly_fields = ('last_login',)
 
@@ -31,7 +37,7 @@ class UserAdmin(BaseUserAdmin):
     search_fields = ('email', 'username')
     ordering = ('username',)
     filter_horizontal = ('groups', 'user_permissions')
-    inlines = (ProfileInline, )
+    inlines = (ProfileInline, UserBadgeInline)
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)

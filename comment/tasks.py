@@ -6,21 +6,22 @@ from comment.models import Comment
 
 
 @shared_task
-def assign_badge(user_id):
+def update_comment_badge(user_id):
     """
-    this is a task for assign comment badge to a user that have more than comment condition badge
-    After that I pass it to signal to handel that
+    this task update progres for comment badge for all user.
+    i pass it to signal
     """
-    user_badge = UserBadge.objects.filter(user_id=user_id, badge__name='comment badge').first()
     badge = Badge.objects.get(name='comment badge')
-    if user_badge:
-        return False
-
+    user_badge = UserBadge.objects.get(badge=badge, user_id=user_id)
     comment_count = Comment.objects.filter(user_id=user_id).count()
-    if comment_count >= badge.condition:
-        badge = Badge.objects.get(name='comment badge')
-        UserBadge.objects.create(user_id=user_id, badge=badge, progress=100)
-        return True
+    progress = round(comment_count / badge.condition * 100)
+    if comment_count < badge.condition:
+        user_badge.progress = progress
+        user_badge.save()
+    else:
+        user_badge.progress = 100
+        user_badge.save()
 
-    return False
+
+
 

@@ -13,7 +13,7 @@ class UserBadgeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserBadge
-        fields = ('badge', 'progress')
+        fields = ('user', 'badge', 'progress')
 
 
 class UserBadgeProgressSerializer(serializers.ModelSerializer):
@@ -21,7 +21,5 @@ class UserBadgeProgressSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserBadge
-        fields = ['user', 'badge', 'progress']
+        fields = ['user', 'badge']
 
-    def get_progress(self, obj):
-        return obj.calculate_progress()

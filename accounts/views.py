@@ -3,7 +3,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, status
-from rest_framework.generics import GenericAPIView
+from rest_framework.generics import GenericAPIView, RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -12,7 +12,8 @@ from django.urls import reverse
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from accounts.models import User
-from accounts.serializers import UserSerializer, EmailVerificationSerializer, LogInSerializer, LogoutSerializer
+from accounts.serializers import UserSerializer, EmailVerificationSerializer, LogInSerializer, LogoutSerializer, \
+    UserDetailSerializers
 from accounts.utils import Util
 from rest_framework import filters
 
@@ -84,16 +85,10 @@ class LoginAPIView(TokenObtainPairView):
         return None
 
     def post(self, request, *args, **kwargs):
-        # Get the serializer instance
+
         serializer = self.get_serializer(data=request.data)
-
-        # Validate the serializer data
         serializer.is_valid(raise_exception=True)
-
-        # Generate access and refresh tokens
         tokens = serializer.validated_data
-
-        # Send the response
         return Response(tokens, status=status.HTTP_200_OK)
 
 
@@ -106,3 +101,10 @@ class LogoutAPIView(GenericAPIView):
         sz.is_valid(raise_exception=True)
         sz.save()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class UserDetailView(RetrieveAPIView):
+    serializer_class = UserDetailSerializers
+
+    def get_queryset(self):
+        return User.objects.filter(verified_email=True)
