@@ -20,14 +20,14 @@ class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
 
-    list_display = ('email', 'username', 'is_admin', 'verified_email')
+    list_display = ('email', 'username', 'is_admin', 'verified_email', 'point', 'level')
     list_filter = ('is_admin',)
     readonly_fields = ('last_login',)
 
     fieldsets = (
         ('Main', {'fields': ('username', 'password')}),
         ('Permissions',
-         {'fields': ('is_active', 'is_admin', 'is_superuser', 'last_login', 'groups', 'user_permissions', 'verified_email')}),
+         {'fields': ('is_active', 'is_admin', 'is_superuser', 'last_login', 'groups', 'user_permissions', 'verified_email', 'point', 'level')}),
     )
 
     add_fieldsets = (

@@ -9,6 +9,7 @@ from django.core.mail import send_mail
 
 from badge.models import Badge, UserBadge
 from comment.models import Comment
+from level.models import Level
 
 
 # Create your models here.
@@ -31,6 +32,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     email = models.EmailField(_("email address"), blank=True, unique=True)
     badge = models.ManyToManyField(Badge, null=True, blank=True, through=UserBadge)
+    point = models.PositiveIntegerField(default=0)
+    level = models.ForeignKey(Level, on_delete=models.CASCADE, related_name='user_lvl', null=True, blank=True)
     verified_email = models.BooleanField(default=False, error_messages='you must active your email')
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(
@@ -66,6 +69,19 @@ class User(AbstractBaseUser, PermissionsMixin):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
+    def save(self, *args, **kwargs):
+        self.update_level()
+        super().save(*args, **kwargs)
+
+    def update_level(self):
+        if self.level:
+            next_lvl = int(self.level.level_numb + 1)
+            lvl = Level.objects.filter(level_numb=next_lvl).first()
+            if lvl and self.point >= lvl.required_points:
+                self.level = lvl
+        else:
+            self.level = Level.objects.get(level_numb=1, required_points=0)
+
 
 class ContactUs(models.Model):
     f_name = models.CharField(_('first name'), max_length=200)
@@ -75,6 +91,3 @@ class ContactUs(models.Model):
 
     class Meta:
         db_table = "contactus"
-
-
-

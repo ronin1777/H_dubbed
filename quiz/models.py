@@ -53,7 +53,7 @@ class Answer(models.Model):
 
 class QuizTaker(models.Model):
     id = models.IntegerField(primary_key=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_quiz')
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     score = models.PositiveSmallIntegerField(default=0)
     completed = models.BooleanField(default=False)
@@ -74,7 +74,7 @@ class QuizTaker(models.Model):
 
         super().save(*args, **kwargs)
         if is_new_instance and self.is_passed:
-            self.user.points += 100
+            self.user.point += 5
             self.user.save()
 
     def calculate_score(self):

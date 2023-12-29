@@ -14,8 +14,6 @@ class Profile(models.Model):
 
     first_name = models.CharField(max_length=120, blank=True, null=True)
     last_name = models.CharField(max_length=120, blank=True, null=True)
-    level = models.ForeignKey(Level, on_delete=models.CASCADE, related_name='user_lvl', null=True, blank=True)
-    point = models.IntegerField(default=0)
     image = models.ImageField(blank=True, null=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile_user', blank=True, null=True)
     gender = models.CharField(max_length=1, choices=GENDER, blank=True, null=True)
@@ -38,15 +36,9 @@ class Profile(models.Model):
 
     def save(self, *args, **kwargs):
         self.update_level()
+        # self.points()
         super().save(*args, **kwargs)
 
-    def update_level(self):
-        if self.level:
-            next_lvl = int(self.level.level_numb + 1)
-            lvl = Level.objects.filter(level_numb=next_lvl).first()
-            if lvl and self.point >= lvl.required_points:
-                self.level = lvl
-        else:
-            self.level = Level.objects.get(level_numb=1, required_points=0)
+
 
 

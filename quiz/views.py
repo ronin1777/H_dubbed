@@ -3,8 +3,8 @@ from rest_framework import generics, permissions, status
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 
-from quiz.models import Quiz
-from quiz.serializers import QuizResultSerializers, QuizListSerializer, QuizTakerSerializer
+from quiz.models import Quiz, QuizTaker
+from quiz.serializers import QuizListSerializer, QuizTakerSerializer, ResultSerializers
 
 
 # Create your views here.
@@ -14,10 +14,10 @@ class MyQuizListAPI(generics.ListAPIView):
     In this endpoint, users can view the quizzes they have completed.
     """
     permission_classes = [permissions.IsAuthenticated]
-    serializer_class = QuizResultSerializers
+    serializer_class = ResultSerializers
 
     def get_queryset(self, *args, **kwargs):
-        queryset = Quiz.objects.filter(quiztaker__user=self.request.user)
+        queryset = QuizTaker.objects.filter(user=self.request.user)
         return queryset
 
 
@@ -39,7 +39,7 @@ class QuizTakerCreateView(CreateAPIView):
     def perform_create(self, serializer):
         instance = serializer.save()
         instance.calculate_progres()
-        instance.save()  # Save the instance to store the progress in the database
+        instance.save()
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
