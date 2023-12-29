@@ -26,3 +26,8 @@ class QuizAdmin(nested_admin.NestedModelAdmin):
 
 class UserAnswerInline(admin.TabularInline):
     model = UsersAnswer
+
+
+class QuizTakerAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'quiz', 'is_passed', 'score', 'completed')
+    inlines = [UserAnswerInline]
