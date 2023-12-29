@@ -4,6 +4,7 @@ from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 
 from quiz.models import Quiz, QuizTaker
+from quiz.pagination import QuizTaker, QuizList
 from quiz.serializers import QuizListSerializer, QuizTakerSerializer, ResultSerializers
 
 
@@ -15,6 +16,7 @@ class MyQuizListAPI(generics.ListAPIView):
     """
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = ResultSerializers
+    pagination_class = QuizList
 
     def get_queryset(self, *args, **kwargs):
         queryset = QuizTaker.objects.filter(user=self.request.user)
@@ -27,6 +29,7 @@ class QuizListAPI(generics.ListAPIView):
     """
     serializer_class = QuizListSerializer
     permission_classes = [permissions.IsAuthenticated]
+    pagination_class = QuizList
 
     def get_queryset(self, *args, **kwargs):
         queryset = Quiz.objects.filter(is_Active=True).exclude(quiztaker__user=self.request.user)
@@ -35,6 +38,7 @@ class QuizListAPI(generics.ListAPIView):
 
 class QuizTakerCreateView(CreateAPIView):
     serializer_class = QuizTakerSerializer
+    pagination_class = QuizTaker
 
     def perform_create(self, serializer):
         instance = serializer.save()

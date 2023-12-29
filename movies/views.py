@@ -4,6 +4,7 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 
 from movies.filters import MovieFilters
 from movies.models import Movie
+from movies.pagination import MoviePagination
 from movies.permisions import IsAdminOrReadOnly
 from movies.serializers import MovieSerializers
 
@@ -14,6 +15,7 @@ class MovieCreateView(ListCreateAPIView):
     serializer_class = MovieSerializers
     filter_backends = [DjangoFilterBackend]
     filterset_class = MovieFilters
+    pagination_class = MoviePagination
 
 
 class MovieUpdateView(RetrieveUpdateDestroyAPIView):
