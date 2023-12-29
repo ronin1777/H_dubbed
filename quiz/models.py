@@ -64,6 +64,19 @@ class QuizTaker(models.Model):
     def __str__(self):
         return self.user.email
 
+    def save(self, *args, **kwargs):
+        is_new_instance = not self.pk
+        self.calculate_score()
+        self.check_if_passed()
+        self.check_complete()
+        if 'update_fields' in kwargs:
+            kwargs.pop('update_fields')
+
+        super().save(*args, **kwargs)
+        if is_new_instance and self.is_passed:
+            self.user.points += 100
+            self.user.save()
+
     def calculate_score(self):
         total_questions = self.quiz.question_set.count()
         correct_answers = self.usersanswer_set.filter(answer__is_right=True).count()
