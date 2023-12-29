@@ -25,6 +25,10 @@ class Quiz(models.Model):
     def __str__(self):
         return self.title
 
+    @property
+    def question_count(self):
+        return self.question_set.count()
+
 
 class Question(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
