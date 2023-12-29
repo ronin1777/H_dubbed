@@ -76,7 +76,8 @@ INSTALLED_APPS = [
     'comment',
     'reviews',
     'badge',
-    'level'
+    'level',
+    'quiz',
 
 ]
 
