@@ -64,6 +64,12 @@ class QuizTaker(models.Model):
     def __str__(self):
         return self.user.email
 
+    def calculate_score(self):
+        total_questions = self.quiz.question_set.count()
+        correct_answers = self.usersanswer_set.filter(answer__is_right=True).count()
+        score = (correct_answers / total_questions) * 100
+        self.score = round(score)
+
 
 class UsersAnswer(models.Model):
     quiz_taker = models.ForeignKey(QuizTaker, on_delete=models.CASCADE)
