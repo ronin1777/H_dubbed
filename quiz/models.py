@@ -1,5 +1,7 @@
 from django.db import models
 
+from h_dubbed import settings
+
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
@@ -32,8 +34,28 @@ class Question(models.Model):
         return self.title
 
 
+class Answer(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100, null=True, blank=True)
+    is_right = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
 
 
+class QuizTaker(models.Model):
+    id = models.IntegerField(primary_key=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    score = models.PositiveSmallIntegerField(default=0)
+    completed = models.BooleanField(default=False)
+    is_passed = models.BooleanField(default=False)
+    time = models.DateTimeField(auto_now_add=True)
+    date_completed = models.DateTimeField(default=None, null=True, blank=True)
+
+    def __str__(self):
+        return self.user.email
+    
 
 
 
