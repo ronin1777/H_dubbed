@@ -97,6 +97,27 @@ class QuizResultSerializers(serializers.ModelSerializer):
             return False
 
 
+class QuizTakerSerializer(serializers.ModelSerializer):
+    users_answer = UsersAnswerSerializer(many=True)
+
+    score = serializers.SerializerMethodField()
+    is_passed = serializers.SerializerMethodField()
+
+    class Meta:
+        model = QuizTaker
+        fields = ['id', 'user', 'quiz', 'score', 'completed', 'is_passed', 'users_answer']
+        read_only = ['user', 'quiz', 'score', 'completed', 'is_passed']
+
+    def get_score(self, obj):
+        total_questions = obj.quiz.question_set.count()
+        correct_answers = obj.usersanswer_set.filter(answer__is_right=True).count()
+        score = (correct_answers / total_questions) * 100
+        return round(score, 2)
+
+    def get_is_passed(self, obj):
+        if obj.score >= obj.quiz.score_required:
+            return True
+
 
 
 
