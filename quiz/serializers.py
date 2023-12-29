@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from quiz.models import Category, Quiz
+from quiz.models import Category, Quiz, Answer
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -19,4 +19,63 @@ class QuizListSerializer(serializers.ModelSerializer):
 
     def get_questions_count(self, obj):
         return obj.question_set.all().count()
+
+
+class AnswerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Answer
+        fields = ["id", "question", "title"]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
