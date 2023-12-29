@@ -76,6 +76,14 @@ class QuizTaker(models.Model):
         else:
             self.is_passed = False
 
+    def check_complete(self):
+        total_questions = self.quiz.question_set.count()
+        total_answers = self.usersanswer_set.filter(answer__isnull=False).count()
+        if total_questions == total_answers:
+            self.completed = True
+        else:
+            self.completed = False
+
 
 class UsersAnswer(models.Model):
     quiz_taker = models.ForeignKey(QuizTaker, on_delete=models.CASCADE)
