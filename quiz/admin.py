@@ -2,7 +2,7 @@ from django.contrib import admin
 
 import nested_admin
 
-from quiz.models import Answer, Question
+from quiz.models import Answer, Question, UsersAnswer
 
 
 # Register your models here.
@@ -19,3 +19,10 @@ class QuestionInline(nested_admin.NestedTabularInline):
     inlines = [AnswerInline,]
     extra = 4
 
+
+class QuizAdmin(nested_admin.NestedModelAdmin):
+    inlines = [QuestionInline]
+
+
+class UserAnswerInline(admin.TabularInline):
+    model = UsersAnswer
