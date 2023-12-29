@@ -70,6 +70,12 @@ class QuizTaker(models.Model):
         score = (correct_answers / total_questions) * 100
         self.score = round(score)
 
+    def check_if_passed(self):
+        if self.score >= self.quiz.score_required:
+            self.is_passed = True
+        else:
+            self.is_passed = False
+
 
 class UsersAnswer(models.Model):
     quiz_taker = models.ForeignKey(QuizTaker, on_delete=models.CASCADE)
