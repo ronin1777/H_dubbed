@@ -55,8 +55,16 @@ class QuizTaker(models.Model):
 
     def __str__(self):
         return self.user.email
-    
 
+
+class UsersAnswer(models.Model):
+    quiz_taker = models.ForeignKey(QuizTaker, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE, null=True, blank=True)
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.question.title
 
 
 
