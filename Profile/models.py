@@ -34,10 +34,6 @@ class Profile(models.Model):
             full_name = None
         return full_name
 
-    def save(self, *args, **kwargs):
-        self.update_level()
-        # self.points()
-        super().save(*args, **kwargs)
 
 
 
