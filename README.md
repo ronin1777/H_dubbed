@@ -42,7 +42,5 @@ python3 manage.py makemigrations
 python3 manage.py migrate
 ```
 some guid:
-> after run project using ```python
-python manage.py runserver
-```
->you must cteae some level and badge with name **profile badge** and **comment** badge.
+> after run project using *python
+python manage.py runserver* you must cteae some level and badge with name **profile badge** and **comment** badge.
