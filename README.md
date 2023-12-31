@@ -41,11 +41,7 @@ pip install -r requirements.txt
 python3 manage.py makemigrations
 python3 manage.py migrate
 ```
-some guid:
-after run project using *python
-python manage.py runserver* you must create some level and create badges with name **profile badge** and **comment badge**. coment badge condi.
------------------------------------------
-Author
+Author:
 > Hosein Sayah
-Email: hoseincomiser27@gmail.com
-========Thank You !!!=========
+> Email: hoseincomiser27@gmail.com
+> ========Thank You !!!=========.
