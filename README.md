@@ -46,6 +46,6 @@ after run project using *python
 python manage.py runserver* you must create some level and create badges with name **profile badge** and **comment badge**. coment badge condi.
 -----------------------------------------
 Author
-> Mahmudul alam
-> Email: expelmahmud@gmail.com
+> Hosein Sayah
+> Email: hoseincomiser27@gmail.com
 > ========Thank You !!!=========
