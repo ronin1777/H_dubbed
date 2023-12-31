@@ -43,4 +43,8 @@ python3 manage.py migrate
 ```
 some guid:
 > after run project using *python
-python manage.py runserver* you must cteae some level and badge with name **profile badge** and **comment** badge.
+python manage.py runserver* you must create some level and create badges with name **profile badge** and **comment badge**. coment badge condi
+Author
+> Mahmudul alam
+> Email: expelmahmud@gmail.com
+========Thank You !!!=========
