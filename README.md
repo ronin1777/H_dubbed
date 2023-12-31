@@ -42,6 +42,6 @@ python3 manage.py makemigrations
 python3 manage.py migrate
 ```
 Author:
-> Hosein Sayah
+> Hosein Sayah <br>
 > Email: hoseincomiser27@gmail.com
 > ========Thank You !!!=========.
