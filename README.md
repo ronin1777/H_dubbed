@@ -29,12 +29,20 @@ This is a movie review project, users have levels and points, and users' levels 
 pip install -r requirements.txt
 ```
 3. Configure a virtual
+```python
+python3 -m venv .venv
+```
 4. install -r requirements
 ```python
 pip install -r requirements.txt
 ```
-6. set up database
+5. set up database
 ```python
 python3 manage.py makemigrations
 python3 manage.py migrate
 ```
+some guid:
+> after run project using ```python
+python manage.py runserver
+```
+you must cteae some level and badge with name **profile badge** and **comment** badge.
