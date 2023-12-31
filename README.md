@@ -47,5 +47,5 @@ python manage.py runserver* you must create some level and create badges with na
 -----------------------------------------
 Author
 > Hosein Sayah
-> Email: hoseincomiser27@gmail.com
-> ========Thank You !!!=========
+Email: hoseincomiser27@gmail.com
+========Thank You !!!=========
