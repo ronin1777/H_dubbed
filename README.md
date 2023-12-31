@@ -43,5 +43,5 @@ python3 manage.py migrate
 ```
 Author:
 > Hosein Sayah <br>
-> Email: hoseincomiser27@gmail.com
+> Email: hoseincomiser27@gmail.com <br>
 > ========Thank You !!!=========.
