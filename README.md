@@ -45,4 +45,4 @@ some guid:
 > after run project using ```python
 python manage.py runserver
 ```
-you must cteae some level and badge with name **profile badge** and **comment** badge.
+>you must cteae some level and badge with name **profile badge** and **comment** badge.
