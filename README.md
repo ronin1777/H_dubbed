@@ -26,17 +26,17 @@ This is a movie review project, users have levels and points, and users' levels 
 # Setup and Run
 1. Clone the repo:
 ```python
-pip install -r requirements.txt
+git clone https://github.com/ronin1777/H_dubbed.git
 ```
-3. Configure a virtual
+2. Configure a virtual
 ```python
 python3 -m venv .venv
 ```
-4. install -r requirements
+3. install -r requirements
 ```python
 pip install -r requirements.txt
 ```
-5. set up database
+4. set up database
 ```python
 python3 manage.py makemigrations
 python3 manage.py migrate
