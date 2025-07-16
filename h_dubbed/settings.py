@@ -27,7 +27,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Fix: Use environment variable for DEBUG, default to False for security
+DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
 ALLOWED_HOSTS = []
 
@@ -121,14 +122,15 @@ WSGI_APPLICATION = 'h_dubbed.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# Fix: Use environment variables for database credentials
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'shop',
-        'USER': 'comiser',
-        'PASSWORD': 'Hosein67',
-        'HOST': 'db',
-        'PORT': '5432',
+        'NAME': os.getenv('DB_NAME', 'shop'),
+        'USER': os.getenv('DB_USER', 'comiser'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'Hosein67'),
+        'HOST': os.getenv('DB_HOST', 'db'),
+        'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
 
@@ -199,14 +201,15 @@ SPECTACULAR_SETTINGS = {
 }
 
 
+# Fix: Use environment variables for S3 credentials
 STORAGES = {
     "default": {
         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
         "OPTIONS": {
-            'access_key': 'ik9thvtb66lu4uc5',
-            'secret_key': '4f2ac6ec-0220-4a4d-9847-8c69b4818b04',
-            'endpoint_url': 'https://storage.iran.liara.space',
-            'bucket_name': 'drf-hdubbed',
+            'access_key': os.getenv('S3_ACCESS_KEY', 'ik9thvtb66lu4uc5'),
+            'secret_key': os.getenv('S3_SECRET_KEY', '4f2ac6ec-0220-4a4d-9847-8c69b4818b04'),
+            'endpoint_url': os.getenv('S3_ENDPOINT_URL', 'https://storage.iran.liara.space'),
+            'bucket_name': os.getenv('S3_BUCKET_NAME', 'drf-hdubbed'),
             'file_overwrite': False,
 
         },

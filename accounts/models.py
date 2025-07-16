@@ -70,17 +70,32 @@ class User(AbstractBaseUser, PermissionsMixin):
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
     def save(self, *args, **kwargs):
-        self.update_level()
+        # Fix: Prevent infinite recursion by checking if level update is needed
+        update_level = kwargs.pop('update_level', True)
+        if update_level:
+            self.update_level()
         super().save(*args, **kwargs)
 
     def update_level(self):
+        """Update user level based on points without triggering infinite recursion"""
+        original_level = self.level
+        
         if self.level:
             next_lvl = int(self.level.level_numb + 1)
             lvl = Level.objects.filter(level_numb=next_lvl).first()
             if lvl and self.point >= lvl.required_points:
                 self.level = lvl
         else:
-            self.level = Level.objects.get(level_numb=1, required_points=0)
+            try:
+                self.level = Level.objects.get(level_numb=1, required_points=0)
+            except Level.DoesNotExist:
+                # Handle case where level 1 doesn't exist
+                pass
+        
+        # Only save if level actually changed to prevent unnecessary DB calls
+        if original_level != self.level:
+            # Save without triggering update_level again
+            super().save(update_fields=['level'])
 
 
 class ContactUs(models.Model):
